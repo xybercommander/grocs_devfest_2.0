@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:grocs/constants/user_constants.dart';
 import 'package:grocs/services/auth.dart';
 import 'package:grocs/services/shared_preferences.dart';
+import 'package:grocs/utils/colors.dart';
 import 'package:grocs/views/AuthPages/sign_in_page.dart';
 import 'package:grocs/views/customer_main_page.dart';
 import 'package:grocs/views/settings_page.dart';
@@ -16,8 +17,10 @@ class NavigatorPage extends StatefulWidget {
 
 class NavigatorPageState extends State<NavigatorPage> {
 
+  PageController pageController = PageController(initialPage: 0);
   AuthMethods authMethods = AuthMethods();
   List<Widget> pages = [];
+  int _selectedIndex = 0;
 
   signOut() async{
     await authMethods.signOut();
@@ -51,8 +54,43 @@ class NavigatorPageState extends State<NavigatorPage> {
           )
         ],
       ),
-      body: Center(
-        child: Text('Is Shop: ${UserConstants.isShop}\nEmail: ${UserConstants.email}'),
+      body: PageView(
+        controller: pageController,
+        scrollDirection: Axis.horizontal,
+        onPageChanged: (value) {
+          setState(() {
+            _selectedIndex = value;
+          });
+        },
+        children: pages,
+      ),
+
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: (value) {
+          setState(() {
+            _selectedIndex = value;
+            pageController.animateToPage(_selectedIndex,
+                duration: Duration(milliseconds: 300),
+                curve: Curves.linearToEaseOut);
+          });
+        },
+        currentIndex: _selectedIndex,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home,
+                color: _selectedIndex == 0
+                    ? AppColors.lightTheme
+                    : Colors.grey[400]),
+            title: Container(),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings,
+                color: _selectedIndex == 1
+                    ? AppColors.lightTheme
+                    : Colors.grey[400]),
+            title: Container(),
+          ),          
+        ],
       ),
     );
   }
