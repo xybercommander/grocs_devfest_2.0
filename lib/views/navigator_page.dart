@@ -3,6 +3,8 @@ import 'package:grocs/constants/user_constants.dart';
 import 'package:grocs/services/auth.dart';
 import 'package:grocs/services/shared_preferences.dart';
 import 'package:grocs/views/AuthPages/sign_in_page.dart';
+import 'package:grocs/views/customer_main_page.dart';
+import 'package:grocs/views/settings_page.dart';
 import 'package:page_transition/page_transition.dart';
 
 class NavigatorPage extends StatefulWidget {
@@ -15,6 +17,7 @@ class NavigatorPage extends StatefulWidget {
 class NavigatorPageState extends State<NavigatorPage> {
 
   AuthMethods authMethods = AuthMethods();
+  List<Widget> pages = [];
 
   signOut() async{
     await authMethods.signOut();
@@ -26,6 +29,14 @@ class NavigatorPageState extends State<NavigatorPage> {
       child: SignIn(),
       type: PageTransitionType.leftToRightWithFade
     ));
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    pages.add(CustomerMainPage());
+    pages.add(SettingsPage());
   }
 
   @override

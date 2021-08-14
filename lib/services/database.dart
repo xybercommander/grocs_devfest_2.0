@@ -19,4 +19,11 @@ class DatabaseMethods {
       .snapshots();
   }
 
+  //-------- GET THE SHOP LIST --------//
+  getShopsList() {
+    return FirebaseFirestore.instance
+      .collection('shops')      
+      .snapshots();
+  }
+
 }
