@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:grocs/utils/colors.dart';
 import 'package:grocs/views/AuthPages/customer_sign_up.dart';
+import 'package:grocs/views/AuthPages/shop_sign_up.dart';
 import 'package:page_transition/page_transition.dart';
 
 class ProfileType extends StatelessWidget {
@@ -61,32 +62,38 @@ class ProfileType extends StatelessWidget {
               ),
             ),
             SizedBox(height: 16,),
-            Container(
-              width: MediaQuery.of(context).size.width - 32,
-              height: MediaQuery.of(context).size.width / 2,
-              decoration: BoxDecoration(
-                color: AppColors.darkTheme,                
-                borderRadius: BorderRadius.circular(15)
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.shopping_bag, color: AppColors.lightTheme, size: 80,),
-                  Text(
-                    'Grocery Shop',
-                    style: TextStyle(
-                      color: AppColors.lightTheme,
-                      fontSize: 24
+            GestureDetector(
+              onTap: () => Navigator.pushReplacement(context, PageTransition(
+                child: ShopSignUp(),
+                type: PageTransitionType.rightToLeftWithFade
+              )),
+              child: Container(
+                width: MediaQuery.of(context).size.width - 32,
+                height: MediaQuery.of(context).size.width / 2,
+                decoration: BoxDecoration(
+                  color: AppColors.darkTheme,                
+                  borderRadius: BorderRadius.circular(15)
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.shopping_bag, color: AppColors.lightTheme, size: 80,),
+                    Text(
+                      'Grocery Shop',
+                      style: TextStyle(
+                        color: AppColors.lightTheme,
+                        fontSize: 24
+                      ),
                     ),
-                  ),
-                  Text(
-                    'Select this if you\'re a Grocery Shop',
-                    style: TextStyle(
-                      color: AppColors.lightTheme,
-                      fontSize: 16
+                    Text(
+                      'Select this if you\'re a Grocery Shop',
+                      style: TextStyle(
+                        color: AppColors.lightTheme,
+                        fontSize: 16
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             )
           ],
