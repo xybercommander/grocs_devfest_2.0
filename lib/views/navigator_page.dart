@@ -4,6 +4,7 @@ import 'package:grocs/services/auth.dart';
 import 'package:grocs/services/shared_preferences.dart';
 import 'package:grocs/utils/colors.dart';
 import 'package:grocs/views/AuthPages/sign_in_page.dart';
+import 'package:grocs/views/chats/chatroom_list.dart';
 import 'package:grocs/views/customer_main_page.dart';
 import 'package:grocs/views/settings_page.dart';
 import 'package:page_transition/page_transition.dart';
@@ -34,12 +35,34 @@ class NavigatorPageState extends State<NavigatorPage> {
     ));
   }
 
+  setPages() {
+    if(UserConstants.isShop) {
+      setState(() {
+        pages.add(ChatRoomList());
+        pages.add(SettingsPage());
+      });
+    } else {
+      setState(() {
+        pages.add(CustomerMainPage());
+        pages.add(SettingsPage());
+      });
+    }
+  }
+
   @override
   void initState() {
     // TODO: implement initState
-    super.initState();
-    pages.add(CustomerMainPage());
-    pages.add(SettingsPage());
+    super.initState();    
+    setPages();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    setState(() {
+      pages = [];
+    });
   }
 
   @override
@@ -77,7 +100,7 @@ class NavigatorPageState extends State<NavigatorPage> {
         currentIndex: _selectedIndex,
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home,
+            icon: Icon(UserConstants.isShop ? Icons.chat : Icons.home,
                 color: _selectedIndex == 0
                     ? AppColors.lightTheme
                     : Colors.grey[400]),

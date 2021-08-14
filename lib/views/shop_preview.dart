@@ -2,8 +2,10 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:grocs/constants/user_constants.dart';
 import 'package:grocs/services/database.dart';
 import 'package:grocs/utils/colors.dart';
+import 'package:grocs/views/chats/chat_screen.dart';
 import 'package:page_transition/page_transition.dart';
 
 // ignore: must_be_immutable
@@ -80,7 +82,17 @@ class ShopPreview extends StatelessWidget {
                           width: 200,
                           height: 50,
                           child: RaisedButton.icon(
-                            onPressed: () {},
+                            onPressed: () {
+                              var chatRoomId = getChatRoomId(UserConstants.name, queryDocumentSnapshot['name']);
+                              Map<String, dynamic> chatRoomInfoMap = {
+                                'users' : [UserConstants.name, queryDocumentSnapshot['name']]
+                              };
+                              databaseMethods.createChatRoom(chatRoomId, chatRoomInfoMap);
+
+                              Navigator.push(context, MaterialPageRoute(
+                                builder: (context) => ChatScreen(queryDocumentSnapshot['name']),
+                              ));
+                            },
                             shape: StadiumBorder(),
                             elevation: 3,
                             icon: Icon(Icons.chat, color: Colors.white, size: 30,),

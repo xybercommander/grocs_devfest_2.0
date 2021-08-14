@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:grocs/constants/user_constants.dart';
 import 'package:grocs/services/database.dart';
 import 'package:grocs/utils/colors.dart';
+import 'package:grocs/views/chats/chatroom_list.dart';
 import 'package:grocs/views/shop_preview.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -62,7 +63,7 @@ class _CustomerMainPageState extends State<CustomerMainPage> {
       ),
 
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () => ChatRoomList(),
         backgroundColor: AppColors.lightTheme,
         child: Icon(Icons.chat_rounded),
       ),
