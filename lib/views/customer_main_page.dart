@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:grocs/constants/user_constants.dart';
 import 'package:grocs/services/database.dart';
 import 'package:grocs/utils/colors.dart';
+import 'package:grocs/views/shop_preview.dart';
+import 'package:page_transition/page_transition.dart';
 
 class CustomerMainPage extends StatefulWidget {
   const CustomerMainPage({ Key key }) : super(key: key);
@@ -44,7 +46,13 @@ class _CustomerMainPageState extends State<CustomerMainPage> {
                     ),
                     title: Text(snapshot.data.docs[index]['name']),
                     subtitle: Text(snapshot.data.docs[index]['description']),
-                    tileColor: Colors.amber,    
+                    tileColor: Colors.amber, 
+                    onTap: () {
+                      Navigator.push(context, PageTransition(
+                        child: ShopPreview(snapshot.data.docs[index]),
+                        type: PageTransitionType.rightToLeftWithFade
+                      ));
+                    },   
                   ),
                 ),
               );
