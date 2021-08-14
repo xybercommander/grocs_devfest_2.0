@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:grocs/constants/user_constants.dart';
 import 'package:grocs/services/auth.dart';
 import 'package:grocs/services/database.dart';
 import 'package:grocs/utils/colors.dart';
@@ -28,6 +29,10 @@ class _ShopDetailsState extends State<ShopDetails> {
   shopSignUp() {
     authMethods.signUpWithEmailAndPassword(widget.shopUserInfo['email'], widget.shopUserInfo['password'])
         .then((value) async {
+          UserConstants.name = widget.shopUserInfo['name'];
+          UserConstants.email = widget.shopUserInfo['email'];
+          UserConstants.isShop = true;
+
           Map<String, dynamic> shopUserInfo = {
             'name': widget.shopUserInfo['name'],
             'isShop': true,            

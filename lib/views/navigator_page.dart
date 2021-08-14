@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grocs/constants/user_constants.dart';
 import 'package:grocs/services/auth.dart';
 import 'package:grocs/views/AuthPages/sign_in_page.dart';
 import 'package:page_transition/page_transition.dart';
@@ -33,7 +34,7 @@ class NavigatorPageState extends State<NavigatorPage> {
         ],
       ),
       body: Center(
-        child: Text('Customer home page'),
+        child: Text('Is Shop: ${UserConstants.isShop}\nEmail: ${UserConstants.email}'),
       ),
     );
   }

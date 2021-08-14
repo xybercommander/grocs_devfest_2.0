@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grocs/constants/user_constants.dart';
 import 'package:grocs/services/auth.dart';
 import 'package:grocs/services/database.dart';
 import 'package:grocs/utils/colors.dart';
@@ -28,6 +29,9 @@ class _CustomerSignUpState extends State<CustomerSignUp> {
   customerSignUp() {
     authMethods.signUpWithEmailAndPassword(email.text, password.text)
         .then((value) {
+          UserConstants.name = name.text;
+          UserConstants.email = email.text;
+          UserConstants.isShop = false;
 
           Map<String, dynamic> customerInfo = {
             'name': name.text,
