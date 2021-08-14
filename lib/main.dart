@@ -1,6 +1,7 @@
 // @dart=2.9
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:grocs/utils/colors.dart';
 import 'package:grocs/views/AuthPages/sign_in_page.dart';
 import 'package:grocs/views/splash_screen.dart';
 
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(        
-        primarySwatch: Colors.orange,
+        primaryColor: AppColors.lightTheme,
         fontFamily: 'Nunito-SemiBold'
       ),
       home: SplashScreen(),

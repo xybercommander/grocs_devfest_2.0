@@ -1,28 +1,54 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:grocs/services/auth.dart';
 import 'package:grocs/services/database.dart';
 import 'package:grocs/utils/colors.dart';
-import 'package:grocs/views/AuthPages/profile_type.dart';
-import 'package:grocs/views/AuthPages/shop_details.dart';
 import 'package:grocs/views/AuthPages/sign_in_page.dart';
+import 'package:grocs/views/navigator_page.dart';
 import 'package:page_transition/page_transition.dart';
 
-import '../navigator_page.dart';
-
-class ShopSignUp extends StatefulWidget {
-  const ShopSignUp({ Key? key }) : super(key: key);
+class ShopDetails extends StatefulWidget {
+  final Map shopUserInfo; 
+  const ShopDetails({ Key? key, required this.shopUserInfo }) : super(key: key);
 
   @override
-  _ShopSignUpState createState() => _ShopSignUpState();
+  _ShopDetailsState createState() => _ShopDetailsState();
 }
 
-class _ShopSignUpState extends State<ShopSignUp> {
+class _ShopDetailsState extends State<ShopDetails> {
 
-  TextEditingController name = TextEditingController();
-  TextEditingController email = TextEditingController();
-  TextEditingController password = TextEditingController();
+  TextEditingController phone = TextEditingController();
+  TextEditingController description = TextEditingController();
+  bool delivery = false;
 
-  bool hidePassword = true;  
+  AuthMethods authMethods = AuthMethods();
+  DatabaseMethods databaseMethods = DatabaseMethods();  
+
+  shopSignUp() {
+    authMethods.signUpWithEmailAndPassword(widget.shopUserInfo['email'], widget.shopUserInfo['password'])
+        .then((value) async {
+          Map<String, dynamic> shopUserInfo = {
+            'name': widget.shopUserInfo['name'],
+            'isShop': true,            
+            'email': widget.shopUserInfo['email']
+          };          
+          await databaseMethods.uploadUserInfo(shopUserInfo);
+
+          Map<String, dynamic> shopData = {
+            'contact': phone.text,
+            'delivery': true,
+            'description': description.text,
+            'name': widget.shopUserInfo['name']
+          };
+          databaseMethods.uploadShopInfo(shopData);
+          
+          Navigator.pushReplacement(context, PageTransition(
+            child: NavigatorPage(),
+            type: PageTransitionType.rightToLeftWithFade
+          ));
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +84,7 @@ class _ShopSignUpState extends State<ShopSignUp> {
                     Container(
                       padding: EdgeInsets.symmetric(vertical: 40, horizontal: 32),
                       child: Text(
-                        'Register Your Shop',
+                        'Add more Details',
                         style: TextStyle(
                           fontSize: 36,
                           fontFamily: 'Nunito-ExtraBold',
@@ -75,9 +101,10 @@ class _ShopSignUpState extends State<ShopSignUp> {
                         borderRadius: BorderRadius.circular(10)
                       ),
                       child: TextField(
-                        controller: name,
+                        controller: phone,
+                        keyboardType: TextInputType.phone,
                         decoration: InputDecoration(
-                          hintText: 'Shop Name',
+                          hintText: 'Phone Number',
                           border: InputBorder.none
                         ),
                       ),
@@ -91,9 +118,9 @@ class _ShopSignUpState extends State<ShopSignUp> {
                         borderRadius: BorderRadius.circular(10)
                       ),
                       child: TextField(
-                        controller: email,
+                        controller: description,
                         decoration: InputDecoration(
-                          hintText: 'Email',
+                          hintText: 'Description',
                           border: InputBorder.none
                         ),
                       ),
@@ -101,27 +128,21 @@ class _ShopSignUpState extends State<ShopSignUp> {
                     SizedBox(height: 12,),
                     Container(
                       padding: EdgeInsets.symmetric(horizontal: 16),
-                      margin: EdgeInsets.symmetric(horizontal: 32),
-                      decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        borderRadius: BorderRadius.circular(10)
-                      ),
-                      child: TextField(
-                        controller: password,
-                        obscureText: hidePassword,
-                        decoration: InputDecoration(
-                          hintText: 'Password',
-                          border: InputBorder.none,
-                          suffixIcon: IconButton(
-                            onPressed: () {
+                      margin: EdgeInsets.symmetric(horizontal: 32),                      
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('Deliveries'),
+                          Checkbox(
+                            value: delivery,
+                            fillColor: MaterialStateProperty.all<Color>(AppColors.lightTheme),
+                            onChanged: (value) {
                               setState(() {
-                                hidePassword = !hidePassword;
-                              });
+                                delivery = value!;
+                              });                              
                             },
-                            icon: Icon(
-                              hidePassword ? Icons.visibility : Icons.visibility_off, color: AppColors.darkTheme,),
                           )
-                        ),
+                        ],
                       ),
                     ),
                     SizedBox(height: 50,),
@@ -131,7 +152,7 @@ class _ShopSignUpState extends State<ShopSignUp> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [                        
                           Text(
-                            'Register',
+                            'Sign Up',
                             style: TextStyle(
                               fontFamily: 'Nunito-ExtraBold',
                               fontSize: 28,
@@ -140,18 +161,7 @@ class _ShopSignUpState extends State<ShopSignUp> {
                             ),
                           ),
                           InkWell(
-                            onTap: () {
-                              Map<String, dynamic> shopUser = {
-                                'name': name.text,
-                                'email': email.text,
-                                'isShop': true,
-                                'password': password.text
-                              };
-                              Navigator.pushReplacement(context, PageTransition(
-                                child: ShopDetails(shopUserInfo: shopUser),
-                                type: PageTransitionType.rightToLeftWithFade
-                              ));
-                            },
+                            onTap: () => shopSignUp(),
                             child: Container(
                               height: 80,
                               width: 80,
