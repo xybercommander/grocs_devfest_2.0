@@ -30,10 +30,23 @@ class _CustomerMainPageState extends State<CustomerMainPage> {
           return ListView.builder(
             itemCount: snapshot.data.docs.length,
             itemBuilder: (context, index) {
-              return ListTile(
-                title: Text(snapshot.data.docs[index]['name']),
-                subtitle: Text(snapshot.data.docs[index]['contact']),
-                                
+              return Padding(
+                padding: EdgeInsets.only(left: 16, right: 16, top: 12),
+                child: Card(
+                  elevation: 10,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                  child: ListTile(
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                    leading: CircleAvatar(
+                      backgroundImage: AssetImage('assets/images/account_image.png'),
+                      backgroundColor: Colors.transparent,
+                      radius: 28,
+                    ),
+                    title: Text(snapshot.data.docs[index]['name']),
+                    subtitle: Text(snapshot.data.docs[index]['description']),
+                    tileColor: Colors.amber,    
+                  ),
+                ),
               );
             },
           );
