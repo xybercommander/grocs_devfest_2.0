@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:grocs/constants/user_constants.dart';
 import 'package:grocs/services/auth.dart';
 import 'package:grocs/services/database.dart';
+import 'package:grocs/services/shared_preferences.dart';
 import 'package:grocs/utils/colors.dart';
 import 'package:grocs/views/AuthPages/profile_type.dart';
 import 'package:grocs/views/AuthPages/sign_in_page.dart';
@@ -39,6 +40,11 @@ class _CustomerSignUpState extends State<CustomerSignUp> {
             'isShop': false
           };
           databaseMethods.uploadUserInfo(customerInfo);
+
+          SharedPref.saveNameSharedPreference(name.text);
+          SharedPref.saveEmailSharedPreference(email.text);
+          SharedPref.saveIsShopSharedPreference(false);
+          SharedPref.saveLoggedInSharedPreference(true);
 
           Navigator.pushReplacement(context, PageTransition(
             child: NavigatorPage(),

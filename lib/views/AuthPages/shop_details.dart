@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:grocs/constants/user_constants.dart';
 import 'package:grocs/services/auth.dart';
 import 'package:grocs/services/database.dart';
+import 'package:grocs/services/shared_preferences.dart';
 import 'package:grocs/utils/colors.dart';
 import 'package:grocs/views/AuthPages/sign_in_page.dart';
 import 'package:grocs/views/navigator_page.dart';
@@ -47,6 +48,11 @@ class _ShopDetailsState extends State<ShopDetails> {
             'name': widget.shopUserInfo['name']
           };
           databaseMethods.uploadShopInfo(shopData);
+
+          SharedPref.saveNameSharedPreference(widget.shopUserInfo['name']);
+          SharedPref.saveEmailSharedPreference(widget.shopUserInfo['email']);
+          SharedPref.saveIsShopSharedPreference(true);
+          SharedPref.saveLoggedInSharedPreference(true);
           
           Navigator.pushReplacement(context, PageTransition(
             child: NavigatorPage(),
