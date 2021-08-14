@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:grocs/utils/colors.dart';
+import 'package:grocs/views/AuthPages/profile_type.dart';
+import 'package:page_transition/page_transition.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({ Key? key }) : super(key: key);
@@ -116,7 +118,10 @@ class _SignInState extends State<SignIn> {
                             ),
                           ),
                           InkWell(
-                            onTap: () => print('Signing in'),                          
+                            onTap: () => Navigator.pushReplacement(context, PageTransition(
+                              child: ProfileType(),
+                              type: PageTransitionType.rightToLeftWithFade
+                            )),
                             child: Container(
                               height: 80,
                               width: 80,
