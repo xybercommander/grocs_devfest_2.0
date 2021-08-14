@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:grocs/utils/colors.dart';
+import 'package:grocs/views/AuthPages/customer_sign_up.dart';
+import 'package:page_transition/page_transition.dart';
 
 class ProfileType extends StatelessWidget {
   const ProfileType({ Key? key }) : super(key: key);
@@ -23,33 +25,39 @@ class ProfileType extends StatelessWidget {
               ),
             ),
             SizedBox(height: 40,),
-            Container(
-              width: MediaQuery.of(context).size.width - 32,
-              height: MediaQuery.of(context).size.width / 2,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(width: 4, color: AppColors.lightTheme),
-                borderRadius: BorderRadius.circular(15)
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.account_circle_rounded, color: AppColors.darkTheme, size: 80,),
-                  Text(
-                    'Customer',
-                    style: TextStyle(
-                      color: AppColors.darkTheme,
-                      fontSize: 24
+            GestureDetector(
+              onTap: () => Navigator.pushReplacement(context, PageTransition(
+                child: CustomerSignUp(),
+                type: PageTransitionType.rightToLeftWithFade
+              )),
+              child: Container(
+                width: MediaQuery.of(context).size.width - 32,
+                height: MediaQuery.of(context).size.width / 2,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(width: 4, color: AppColors.lightTheme),
+                  borderRadius: BorderRadius.circular(15)
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.account_circle_rounded, color: AppColors.darkTheme, size: 80,),
+                    Text(
+                      'Customer',
+                      style: TextStyle(
+                        color: AppColors.darkTheme,
+                        fontSize: 24
+                      ),
                     ),
-                  ),
-                  Text(
-                    'Select this if you\'re registering as a Customer',
-                    style: TextStyle(
-                      color: AppColors.darkTheme,
-                      fontSize: 16
+                    Text(
+                      'Select this if you\'re registering as a Customer',
+                      style: TextStyle(
+                        color: AppColors.darkTheme,
+                        fontSize: 16
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
             SizedBox(height: 16,),

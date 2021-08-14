@@ -12,7 +12,6 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
 
-  TextEditingController name = TextEditingController();
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
 
@@ -97,7 +96,9 @@ class _SignInState extends State<SignIn> {
                               });
                             },
                             icon: Icon(
-                              hidePassword ? Icons.visibility : Icons.visibility_off, color: AppColors.darkTheme,),
+                              hidePassword ? Icons.visibility : Icons.visibility_off, 
+                              color: AppColors.darkTheme,
+                            ),
                           )
                         ),
                       ),
@@ -118,10 +119,10 @@ class _SignInState extends State<SignIn> {
                             ),
                           ),
                           InkWell(
-                            onTap: () => Navigator.pushReplacement(context, PageTransition(
-                              child: ProfileType(),
-                              type: PageTransitionType.rightToLeftWithFade
-                            )),
+                            // onTap: () => Navigator.pushReplacement(context, PageTransition(
+                            //   child: ProfileType(),
+                            //   type: PageTransitionType.rightToLeftWithFade
+                            // )),
                             child: Container(
                               height: 80,
                               width: 80,
@@ -148,10 +149,16 @@ class _SignInState extends State<SignIn> {
                               color: Colors.black
                             ),
                           ),
-                          Text(
-                            'Sign Up',
-                            style: TextStyle(
-                              color: AppColors.lightTheme
+                          GestureDetector(
+                            onTap: () => Navigator.pushReplacement(context, PageTransition(
+                              child: ProfileType(),
+                              type: PageTransitionType.rightToLeftWithFade
+                            )),
+                            child: Text(
+                              'Sign Up',
+                              style: TextStyle(
+                                color: AppColors.lightTheme
+                              ),
                             ),
                           ),
                         ],
