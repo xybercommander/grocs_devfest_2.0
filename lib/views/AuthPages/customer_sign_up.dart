@@ -3,7 +3,7 @@ import 'package:grocs/services/auth.dart';
 import 'package:grocs/utils/colors.dart';
 import 'package:grocs/views/AuthPages/profile_type.dart';
 import 'package:grocs/views/AuthPages/sign_in_page.dart';
-import 'package:grocs/views/customer_navigator.dart';
+import 'package:grocs/views/navigator_page.dart';
 import 'package:page_transition/page_transition.dart';
 
 class CustomerSignUp extends StatefulWidget {

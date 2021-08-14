@@ -2,6 +2,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:grocs/views/AuthPages/sign_in_page.dart';
+import 'package:grocs/views/splash_screen.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.orange,
         fontFamily: 'Nunito-SemiBold'
       ),
-      home: SignIn(),
+      home: SplashScreen(),
     );
   }
 }
