@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:grocs/constants/user_constants.dart';
+import 'package:grocs/services/shared_preferences.dart';
 import 'package:grocs/utils/colors.dart';
 import 'package:grocs/views/AuthPages/sign_in_page.dart';
+import 'package:grocs/views/navigator_page.dart';
 import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -13,13 +16,28 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
 
-  initFunction() {
-    Future.delayed(Duration(seconds: 5), () {
-      Navigator.pushReplacement(context, PageTransition(
-        child: SignIn(),
-        type: PageTransitionType.fade
-      ));
-    });
+  bool isLoggedIn = false;
+
+  initFunction() async {
+    bool loggedInState = await SharedPref.getUserLoggedInSharedPreference() ?? false;
+    if(loggedInState) {
+      UserConstants.email = await SharedPref.getEmailInSharedPreference() ?? "";
+      UserConstants.name = await SharedPref.getNameInSharedPreference() ?? "";
+      UserConstants.isShop = await SharedPref.getIsShopInSharedPreference() ?? false;
+      Future.delayed(Duration(seconds: 3), () {
+        Navigator.pushReplacement(context, PageTransition(
+          child: NavigatorPage(),
+          type: PageTransitionType.fade
+        ));
+      });
+    } else {
+      Future.delayed(Duration(seconds: 3), () {
+        Navigator.pushReplacement(context, PageTransition(
+          child: SignIn(),
+          type: PageTransitionType.fade
+        ));
+      });
+    }    
   }
 
   @override
