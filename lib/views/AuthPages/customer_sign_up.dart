@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:grocs/services/auth.dart';
 import 'package:grocs/utils/colors.dart';
 import 'package:grocs/views/AuthPages/profile_type.dart';
 import 'package:grocs/views/AuthPages/sign_in_page.dart';
+import 'package:grocs/views/customer_navigator.dart';
 import 'package:page_transition/page_transition.dart';
 
 class CustomerSignUp extends StatefulWidget {
@@ -18,6 +20,18 @@ class _CustomerSignUpState extends State<CustomerSignUp> {
   TextEditingController password = TextEditingController();
 
   bool hidePassword = true;
+
+  AuthMethods authMethods = AuthMethods();
+
+  signUp() {
+    authMethods.signUpWithEmailAndPassword(email.text, password.text)
+        .then((value) {
+          Navigator.pushReplacement(context, PageTransition(
+            child: CustomerNavigator(),
+            type: PageTransitionType.rightToLeftWithFade
+          ));
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -135,10 +149,7 @@ class _CustomerSignUpState extends State<CustomerSignUp> {
                             ),
                           ),
                           InkWell(
-                            onTap: () => Navigator.pushReplacement(context, PageTransition(
-                              child: ProfileType(),
-                              type: PageTransitionType.rightToLeftWithFade
-                            )),
+                            onTap: () => signUp(),
                             child: Container(
                               height: 80,
                               width: 80,
