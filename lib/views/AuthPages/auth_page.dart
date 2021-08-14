@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:grocs/constants/user_constants.dart';
 import 'package:grocs/services/database.dart';
 import 'package:grocs/services/shared_preferences.dart';
+import 'package:grocs/utils/colors.dart';
 import 'package:grocs/views/navigator_page.dart';
 import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';
@@ -42,13 +43,29 @@ class _AuthPageState extends State<AuthPage> {
             WidgetsBinding.instance.addPostFrameCallback((_) {
               Navigator.pushReplacement(context, PageTransition(
                 child: NavigatorPage(),
-                type: PageTransitionType.bottomToTop
+                type: PageTransitionType.fade,
+                duration: Duration(milliseconds: 100)
               ));
             });
           });
 
-          return Center(
-            child: Lottie.asset('assets/animations/searching.json'),
+          return Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Lottie.asset('assets/animations/searching.json'),
+                Text(
+                  'Fetching your data',
+                  style: TextStyle(
+                    color: AppColors.lightTheme,
+                    fontSize: 40,
+                    fontFamily: 'Nunito-ExtraBold'
+                  ),
+                )
+              ],
+            ),
           );
         },
       ),
