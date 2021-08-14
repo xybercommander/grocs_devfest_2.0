@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:grocs/views/sign_in_page.dart';
+import 'package:grocs/views/AuthPages/sign_in_page.dart';
 
 void main() {
   runApp(MyApp());

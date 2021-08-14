@@ -115,15 +115,18 @@ class _SignInState extends State<SignIn> {
                               color: AppColors.lightTheme
                             ),
                           ),
-                          Container(
-                            height: 80,
-                            width: 80,
-                            decoration: BoxDecoration(
-                              color: AppColors.lightTheme,
-                              borderRadius: BorderRadius.circular(100)
-                            ),
-                            child: Center(
-                              child: Icon(Icons.arrow_forward_outlined, color: Colors.white,),
+                          InkWell(
+                            onTap: () => print('Signing in'),                          
+                            child: Container(
+                              height: 80,
+                              width: 80,
+                              decoration: BoxDecoration(
+                                color: AppColors.lightTheme,
+                                borderRadius: BorderRadius.circular(100)
+                              ),
+                              child: Center(
+                                child: Icon(Icons.arrow_forward_outlined, color: Colors.white,),
+                              ),
                             ),
                           )
                         ],
