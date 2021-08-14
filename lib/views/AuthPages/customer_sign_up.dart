@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grocs/services/auth.dart';
+import 'package:grocs/services/database.dart';
 import 'package:grocs/utils/colors.dart';
 import 'package:grocs/views/AuthPages/profile_type.dart';
 import 'package:grocs/views/AuthPages/sign_in_page.dart';
@@ -22,10 +23,19 @@ class _CustomerSignUpState extends State<CustomerSignUp> {
   bool hidePassword = true;
 
   AuthMethods authMethods = AuthMethods();
+  DatabaseMethods databaseMethods = DatabaseMethods();
 
-  signUp() {
+  customerSignUp() {
     authMethods.signUpWithEmailAndPassword(email.text, password.text)
         .then((value) {
+
+          Map<String, dynamic> customerInfo = {
+            'name': name.text,
+            'email': email.text,
+            'isShop': false
+          };
+          databaseMethods.uploadUserInfo(customerInfo);
+
           Navigator.pushReplacement(context, PageTransition(
             child: NavigatorPage(),
             type: PageTransitionType.rightToLeftWithFade
@@ -149,7 +159,7 @@ class _CustomerSignUpState extends State<CustomerSignUp> {
                             ),
                           ),
                           InkWell(
-                            onTap: () => signUp(),
+                            onTap: () => customerSignUp(),
                             child: Container(
                               height: 80,
                               width: 80,
