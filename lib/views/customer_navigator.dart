@@ -3,14 +3,14 @@ import 'package:grocs/services/auth.dart';
 import 'package:grocs/views/AuthPages/sign_in_page.dart';
 import 'package:page_transition/page_transition.dart';
 
-class CustomerNavigator extends StatefulWidget {
-  const CustomerNavigator({ Key? key }) : super(key: key);
+class NavigatorPage extends StatefulWidget {
+  const NavigatorPage({ Key? key }) : super(key: key);
 
   @override
-  _CustomerNavigatorState createState() => _CustomerNavigatorState();
+  NavigatorPageState createState() => NavigatorPageState();
 }
 
-class _CustomerNavigatorState extends State<CustomerNavigator> {
+class NavigatorPageState extends State<NavigatorPage> {
 
   AuthMethods authMethods = AuthMethods();
 

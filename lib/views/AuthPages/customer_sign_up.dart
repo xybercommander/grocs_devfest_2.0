@@ -27,7 +27,7 @@ class _CustomerSignUpState extends State<CustomerSignUp> {
     authMethods.signUpWithEmailAndPassword(email.text, password.text)
         .then((value) {
           Navigator.pushReplacement(context, PageTransition(
-            child: CustomerNavigator(),
+            child: NavigatorPage(),
             type: PageTransitionType.rightToLeftWithFade
           ));
         });
