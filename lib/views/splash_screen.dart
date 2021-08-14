@@ -21,6 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
   initFunction() async {
     bool loggedInState = await SharedPref.getUserLoggedInSharedPreference() ?? false;
     if(loggedInState) {
+
       UserConstants.email = await SharedPref.getEmailInSharedPreference() ?? "";
       UserConstants.name = await SharedPref.getNameInSharedPreference() ?? "";
       UserConstants.isShop = await SharedPref.getIsShopInSharedPreference() ?? false;
@@ -30,13 +31,16 @@ class _SplashScreenState extends State<SplashScreen> {
           type: PageTransitionType.fade
         ));
       });
+
     } else {
+
       Future.delayed(Duration(seconds: 3), () {
         Navigator.pushReplacement(context, PageTransition(
           child: SignIn(),
           type: PageTransitionType.fade
         ));
       });
+      
     }    
   }
 

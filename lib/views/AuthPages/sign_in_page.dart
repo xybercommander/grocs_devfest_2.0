@@ -1,5 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:grocs/services/auth.dart';
+import 'package:grocs/services/database.dart';
+import 'package:grocs/services/shared_preferences.dart';
 import 'package:grocs/utils/colors.dart';
+import 'package:grocs/views/AuthPages/auth_page.dart';
 import 'package:grocs/views/AuthPages/profile_type.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -15,7 +20,21 @@ class _SignInState extends State<SignIn> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
 
+  DatabaseMethods databaseMethods = DatabaseMethods();
+  AuthMethods authMethods = AuthMethods();
+
   bool hidePassword = true;
+
+  signIn() async {
+    Stream<QuerySnapshot> userStream = await databaseMethods.getUserInfoByEmail(email.text);
+    authMethods.signInWithEmailAndPassword(email.text, password.text)
+        .then((value) {
+          Navigator.pushReplacement(context, PageTransition(
+            child: AuthPage(userStream: userStream,),
+            type: PageTransitionType.rightToLeftWithFade
+          ));
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +78,7 @@ class _SignInState extends State<SignIn> {
                           fontWeight: FontWeight.bold
                         ),
                       ),
-                    ),                    
+                    ),
                     Container(
                       padding: EdgeInsets.symmetric(horizontal: 16),
                       margin: EdgeInsets.symmetric(horizontal: 32),
@@ -119,10 +138,7 @@ class _SignInState extends State<SignIn> {
                             ),
                           ),
                           InkWell(
-                            // onTap: () => Navigator.pushReplacement(context, PageTransition(
-                            //   child: ProfileType(),
-                            //   type: PageTransitionType.rightToLeftWithFade
-                            // )),
+                            onTap: () => signIn(),
                             child: Container(
                               height: 80,
                               width: 80,
