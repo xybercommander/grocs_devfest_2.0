@@ -23,18 +23,6 @@ class NavigatorPageState extends State<NavigatorPage> {
   List<Widget> pages = [];
   int _selectedIndex = 0;
 
-  signOut() async{
-    await authMethods.signOut();
-    SharedPref.saveEmailSharedPreference("");
-    SharedPref.saveNameSharedPreference("");
-    SharedPref.saveLoggedInSharedPreference(false);
-
-    Navigator.pushReplacement(context, PageTransition(
-      child: SignIn(),
-      type: PageTransitionType.leftToRightWithFade
-    ));
-  }
-
   setPages() {
     if(UserConstants.isShop) {
       setState(() {

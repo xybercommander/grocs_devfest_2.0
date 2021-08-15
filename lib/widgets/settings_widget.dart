@@ -1,6 +1,10 @@
 // @dart=2.9
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:grocs/services/auth.dart';
+import 'package:grocs/services/shared_preferences.dart';
+import 'package:grocs/views/AuthPages/sign_in_page.dart';
+import 'package:page_transition/page_transition.dart';
 
 class SettingsTile extends StatefulWidget {
   final IconData icon;
@@ -19,7 +23,20 @@ class SettingsTile extends StatefulWidget {
 
 class _SettingsTileState extends State<SettingsTile> {
 
+  AuthMethods authMethods = AuthMethods();
   bool darkMode = false;
+
+  signOut() async{
+    await authMethods.signOut();
+    SharedPref.saveEmailSharedPreference("");
+    SharedPref.saveNameSharedPreference("");
+    SharedPref.saveLoggedInSharedPreference(false);
+
+    Navigator.pushReplacement(context, PageTransition(
+      child: SignIn(),
+      type: PageTransitionType.leftToRightWithFade
+    ));
+  }
 
   // @override
   // void initState() {
@@ -87,7 +104,14 @@ class _SettingsTileState extends State<SettingsTile> {
                   borderRadius: BorderRadius.circular(10)
                 ),
                 child: Center(
-                  child: Icon(Icons.keyboard_arrow_right)
+                  child: IconButton(
+                    onPressed: () {
+                      if(widget.title == 'Logout') {
+                        signOut();
+                      }
+                    },
+                    icon: Icon(Icons.keyboard_arrow_right),
+                  )
                 ),
               ),
         )
