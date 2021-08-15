@@ -1,3 +1,4 @@
+// @dart=2.9
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:grocs/constants/user_constants.dart';
@@ -5,13 +6,14 @@ import 'package:grocs/utils/colors.dart';
 import 'package:grocs/widgets/settings_widget.dart';
 
 class SettingsPage extends StatefulWidget {
-  const SettingsPage({ Key? key }) : super(key: key);
+  const SettingsPage({ Key key }) : super(key: key);
 
   @override
   _SettingsPageState createState() => _SettingsPageState();
 }
 
 class _SettingsPageState extends State<SettingsPage> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

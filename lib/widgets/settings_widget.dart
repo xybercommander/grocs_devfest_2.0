@@ -1,10 +1,13 @@
 // @dart=2.9
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:grocs/models/theme_model.dart';
 import 'package:grocs/services/auth.dart';
 import 'package:grocs/services/shared_preferences.dart';
 import 'package:grocs/views/AuthPages/sign_in_page.dart';
+import 'package:grocs/widgets/theme_widgets.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
 
 class SettingsTile extends StatefulWidget {
   final IconData icon;
@@ -25,6 +28,7 @@ class _SettingsTileState extends State<SettingsTile> {
 
   AuthMethods authMethods = AuthMethods();
   bool darkMode = false;
+  ThemeData themeData;
 
   signOut() async{
     await authMethods.signOut();
@@ -38,10 +42,20 @@ class _SettingsTileState extends State<SettingsTile> {
     ));
   }
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  // }
+  @override
+  void initState() {
+    themeData = Provider.of<ThemeModel>(context, listen: false).currentTheme;
+    if(themeData == darkTheme) {
+      setState(() {
+        darkMode = true;
+      });
+    } else {
+      setState(() {
+        darkMode = false;
+      });
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +106,8 @@ class _SettingsTileState extends State<SettingsTile> {
                       ),
                       onToggle: (val) {
                         setState(() {
-                          darkMode = val;                          
+                          darkMode = val; 
+                          Provider.of<ThemeModel>(context, listen: false).toggleTheme();
                         });
                       },
                     )
