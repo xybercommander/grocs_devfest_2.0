@@ -1,5 +1,9 @@
 // @dart=2.9
+import 'dart:io';
+
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:grocs/constants/user_constants.dart';
 import 'package:grocs/services/auth.dart';
 import 'package:grocs/services/database.dart';
@@ -8,6 +12,7 @@ import 'package:grocs/utils/colors.dart';
 import 'package:grocs/views/AuthPages/profile_type.dart';
 import 'package:grocs/views/AuthPages/sign_in_page.dart';
 import 'package:grocs/views/navigator_page.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:page_transition/page_transition.dart';
 
 class CustomerSignUp extends StatefulWidget {
@@ -24,36 +29,66 @@ class _CustomerSignUpState extends State<CustomerSignUp> {
   TextEditingController password = TextEditingController();
 
   bool hidePassword = true;
+  File _image;
+  String imgUrl = '';
 
   AuthMethods authMethods = AuthMethods();
   DatabaseMethods databaseMethods = DatabaseMethods();
 
   final formKey = GlobalKey<FormState>();
 
-  customerSignUp() {
-    authMethods.signUpWithEmailAndPassword(email.text, password.text)
-        .then((value) {
-          UserConstants.name = name.text;
-          UserConstants.email = email.text;
-          UserConstants.isShop = false;
+  customerSignUp() async {
+    if(_image != null) {
+      await uploadPic();
+      print(imgUrl);
+    }
 
-          Map<String, dynamic> customerInfo = {
-            'name': name.text,
-            'email': email.text,
-            'isShop': false
-          };
-          databaseMethods.uploadUserInfo(customerInfo);
+    // authMethods.signUpWithEmailAndPassword(email.text, password.text)
+    //     .then((value) {
+    //       UserConstants.name = name.text;
+    //       UserConstants.email = email.text;
+    //       UserConstants.isShop = false;
 
-          SharedPref.saveNameSharedPreference(name.text);
-          SharedPref.saveEmailSharedPreference(email.text);
-          SharedPref.saveIsShopSharedPreference(false);
-          SharedPref.saveLoggedInSharedPreference(true);
+    //       Map<String, dynamic> customerInfo = {
+    //         'name': name.text,
+    //         'email': email.text,
+    //         'isShop': false
+    //       };
+    //       databaseMethods.uploadUserInfo(customerInfo);
 
-          Navigator.pushReplacement(context, PageTransition(
-            child: NavigatorPage(),
-            type: PageTransitionType.rightToLeftWithFade
-          ));
-        });
+    //       SharedPref.saveNameSharedPreference(name.text);
+    //       SharedPref.saveEmailSharedPreference(email.text);
+    //       SharedPref.saveIsShopSharedPreference(false);
+    //       SharedPref.saveLoggedInSharedPreference(true);
+
+    //       Navigator.pushReplacement(context, PageTransition(
+    //         child: NavigatorPage(),
+    //         type: PageTransitionType.rightToLeftWithFade
+    //       ));
+    //     });
+  }
+
+  final picker = ImagePicker();
+  Future getImage() async {
+    PickedFile pickedFile = await picker.getImage(source: ImageSource.gallery);
+    setState(() {
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+      } else {
+        Fluttertoast.showToast(
+            msg: 'No Image Picked!',
+            textColor: Colors.white,
+            backgroundColor: Color.fromRGBO(253, 170, 142, 1));
+      }
+    });
+  }
+
+  Future uploadPic() async {
+    final file = _image;
+    FirebaseStorage storage = FirebaseStorage.instance;
+    Reference reference = storage.ref().child(file.path);
+    await reference.putFile(file);
+    imgUrl = await reference.getDownloadURL();
   }
 
   @override
@@ -76,7 +111,7 @@ class _CustomerSignUpState extends State<CustomerSignUp> {
               Container(
                 padding: EdgeInsets.only(top: 16),
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height / 1.4,
+                height: MediaQuery.of(context).size.height / 1.35,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
@@ -90,7 +125,7 @@ class _CustomerSignUpState extends State<CustomerSignUp> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        padding: EdgeInsets.symmetric(vertical: 40, horizontal: 32),
+                        padding: EdgeInsets.symmetric(vertical: 30, horizontal: 32),
                         child: Text(
                           'Get Started',
                           style: TextStyle(
@@ -101,6 +136,34 @@ class _CustomerSignUpState extends State<CustomerSignUp> {
                           ),
                         ),
                       ),
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 32),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            CircleAvatar(
+                              backgroundImage: _image == null 
+                                  ? AssetImage('assets/images/account_image.png')
+                                  : FileImage(_image),
+                              backgroundColor: Colors.transparent,
+                              radius: 35,
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                getImage();
+                              },
+                              child: Text(
+                                '+Add Image',
+                                style: TextStyle(
+                                  color: AppColors.lightTheme,
+                                  fontFamily: 'Nunito-Bold'
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 12,),
                       Container(
                         padding: EdgeInsets.symmetric(horizontal: 16),
                         margin: EdgeInsets.symmetric(horizontal: 32),
@@ -186,9 +249,10 @@ class _CustomerSignUpState extends State<CustomerSignUp> {
                             ),
                             InkWell(
                               onTap: () {
-                                if(formKey.currentState.validate()) {
-                                  customerSignUp();
-                                }
+                                customerSignUp();
+                                // if(formKey.currentState.validate()) {
+                                //   customerSignUp();
+                                // }
                               },
                               child: Container(
                                 height: 80,
