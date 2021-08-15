@@ -40,32 +40,32 @@ class _CustomerSignUpState extends State<CustomerSignUp> {
   customerSignUp() async {
     if(_image != null) {
       await uploadPic();
-      print(imgUrl);
     }
 
-    // authMethods.signUpWithEmailAndPassword(email.text, password.text)
-    //     .then((value) {
-    //       UserConstants.name = name.text;
-    //       UserConstants.email = email.text;
-    //       UserConstants.isShop = false;
+    authMethods.signUpWithEmailAndPassword(email.text, password.text)
+        .then((value) {
+          UserConstants.name = name.text;
+          UserConstants.email = email.text;
+          UserConstants.isShop = false;
 
-    //       Map<String, dynamic> customerInfo = {
-    //         'name': name.text,
-    //         'email': email.text,
-    //         'isShop': false
-    //       };
-    //       databaseMethods.uploadUserInfo(customerInfo);
+          Map<String, dynamic> customerInfo = {
+            'name': name.text,
+            'email': email.text,
+            'isShop': false,
+            'imgUrl': imgUrl
+          };
+          databaseMethods.uploadUserInfo(customerInfo);
 
-    //       SharedPref.saveNameSharedPreference(name.text);
-    //       SharedPref.saveEmailSharedPreference(email.text);
-    //       SharedPref.saveIsShopSharedPreference(false);
-    //       SharedPref.saveLoggedInSharedPreference(true);
+          SharedPref.saveNameSharedPreference(name.text);
+          SharedPref.saveEmailSharedPreference(email.text);
+          SharedPref.saveIsShopSharedPreference(false);
+          SharedPref.saveLoggedInSharedPreference(true);
 
-    //       Navigator.pushReplacement(context, PageTransition(
-    //         child: NavigatorPage(),
-    //         type: PageTransitionType.rightToLeftWithFade
-    //       ));
-    //     });
+          Navigator.pushReplacement(context, PageTransition(
+            child: NavigatorPage(),
+            type: PageTransitionType.rightToLeftWithFade
+          ));
+        });
   }
 
   final picker = ImagePicker();

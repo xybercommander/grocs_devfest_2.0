@@ -6,6 +6,7 @@ class SharedPref {
   static String isShopSharedPreferenceKey = ' ISSHOPKEY';
   static String emailSharedPreferenceKey = 'EMAILKEY';
   static String nameSharedPreferenceKey = 'NAMEKEY';
+  static String imgUrlSharedPreferenceKey = 'IMGURLKEY';
 
   //-------- SET FUNCTION --------//
 
@@ -29,6 +30,13 @@ class SharedPref {
     await preferences.setString(nameSharedPreferenceKey, name);
   }
 
+  static Future<void> saveImgUrlSharedPreference(String imgUrl) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    await preferences.setString(imgUrlSharedPreferenceKey, imgUrl);
+  }
+
+
+
   //-------- GET FUNCTION --------//
 
   static Future<bool?> getUserLoggedInSharedPreference() async {
@@ -49,5 +57,10 @@ class SharedPref {
   static Future<String?> getNameInSharedPreference() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     return preferences.getString(nameSharedPreferenceKey);
+  }
+
+  static Future<String?> getImgUrlInSharedPreference() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    return preferences.getString(imgUrlSharedPreferenceKey);
   }
 }
