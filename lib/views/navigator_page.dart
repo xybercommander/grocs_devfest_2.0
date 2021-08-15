@@ -104,14 +104,28 @@ class NavigatorPageState extends State<NavigatorPage> {
                 color: _selectedIndex == 0
                     ? AppColors.lightTheme
                     : Colors.grey[400]),
-            title: Container(),
+            title: Text(
+                UserConstants.isShop ? 'Chats' : 'Shops',
+                style: TextStyle(
+                  color: _selectedIndex == 0
+                    ? AppColors.lightTheme
+                    : Colors.grey[400]
+                ),
+              ),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings,
                 color: _selectedIndex == 1
                     ? AppColors.lightTheme
                     : Colors.grey[400]),
-            title: Container(),
+            title: Text(
+                'Settings',
+                style: TextStyle(
+                  color: _selectedIndex == 1
+                    ? AppColors.lightTheme
+                    : Colors.grey[400]
+                ),
+              ),
           ),          
         ],
       ),
