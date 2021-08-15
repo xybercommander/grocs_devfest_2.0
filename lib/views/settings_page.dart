@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:grocs/constants/user_constants.dart';
 import 'package:grocs/utils/colors.dart';
@@ -40,18 +41,21 @@ class _SettingsPageState extends State<SettingsPage> {
               alignment: Alignment.center,
               child: Column(
                 children: [
-                  Container(
-                    child: UserConstants.imgUrl == ''
-                      ? CircleAvatar(
-                          backgroundImage: AssetImage('assets/images/account_image.png'),
-                          backgroundColor: Colors.transparent,
-                          radius: 60,
-                        )
-                      : CircleAvatar(
-                          backgroundImage: NetworkImage(UserConstants.imgUrl),
-                          backgroundColor: Colors.transparent,
-                          radius: 60,
-                        ),
+                  GestureDetector(
+                    onTap: () => print(UserConstants.imgUrl),
+                    child: Container(
+                      child: UserConstants.imgUrl == ''
+                        ? CircleAvatar(
+                            backgroundImage: AssetImage('assets/images/account_image.png'),
+                            backgroundColor: Colors.transparent,
+                            radius: 60,
+                          )
+                        : CircleAvatar(
+                            backgroundImage: CachedNetworkImageProvider(UserConstants.imgUrl),
+                            backgroundColor: Colors.transparent,
+                            radius: 60,
+                          ),
+                    ),
                   ),
                   Text(
                     UserConstants.name,

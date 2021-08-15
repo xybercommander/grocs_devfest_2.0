@@ -25,6 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
       UserConstants.email = await SharedPref.getEmailInSharedPreference() ?? "";
       UserConstants.name = await SharedPref.getNameInSharedPreference() ?? "";
       UserConstants.isShop = await SharedPref.getIsShopInSharedPreference() ?? false;
+      UserConstants.imgUrl = await SharedPref.getImgUrlInSharedPreference() ?? "";
       Future.delayed(Duration(seconds: 3), () {
         Navigator.pushReplacement(context, PageTransition(
           child: NavigatorPage(),
