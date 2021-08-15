@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grocs/constants/user_constants.dart';
+import 'package:grocs/utils/colors.dart';
 import 'package:grocs/widgets/settings_widget.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -23,23 +24,26 @@ class _SettingsPageState extends State<SettingsPage> {
             Text(
               'Settings',
               style: TextStyle(
-                fontSize: 50
+                fontSize: 50,
+                color: AppColors.lightTheme
               ),
             ),
             Text(
               'Account',
               style: TextStyle(
-                fontSize: 30
+                fontSize: 30,
+                color: AppColors.lightTheme
               ),
-            ),
+            ),            
             Container(
+              padding: EdgeInsets.symmetric(vertical: 32),
               alignment: Alignment.center,
               child: Column(
                 children: [
                   CircleAvatar(
                     backgroundImage: AssetImage('assets/images/account_image.png'),
                     backgroundColor: Colors.transparent,
-                    radius: 50,
+                    radius: 60,
                   ),
                   Text(
                     UserConstants.name,
@@ -59,11 +63,15 @@ class _SettingsPageState extends State<SettingsPage> {
             Text(
               'More Settings',
               style: TextStyle(
-                fontSize: 30
+                fontSize: 30,
+                color: AppColors.lightTheme
               ),
             ),
+            SizedBox(height: 24,),
             SettingsTile(icon: Icons.dark_mode, color: Colors.purple[800], title: 'Dark Mode',),
+            SizedBox(height: 24,),
             SettingsTile(icon: Icons.info, color: Colors.green[800], title: 'About Me',),
+            SizedBox(height: 24,),
             SettingsTile(icon: Icons.logout, color: Colors.red[800], title: 'Logout',),            
           ],
         ),
