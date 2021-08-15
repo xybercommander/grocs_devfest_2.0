@@ -30,7 +30,7 @@ class _CustomerMainPageState extends State<CustomerMainPage> {
             );
           }
 
-          return ListView.builder(
+          return snapshot.data.docs.length > 0 ? ListView.builder(
             itemCount: snapshot.data.docs.length,
             itemBuilder: (context, index) {
               return Padding(
@@ -58,6 +58,24 @@ class _CustomerMainPageState extends State<CustomerMainPage> {
                 ),
               );
             },
+          ) : Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset('assets/images/not-found.png', height: 100, width: 100,),
+                SizedBox(height: 16,),
+                Text(
+                  'No shops found :(', 
+                  style: TextStyle(
+                    color: AppColors.lightTheme, 
+                    fontFamily: 'Nunito-Bold',
+                    fontSize: 30
+                  ),
+                )
+              ],
+            )
           );
         }
       ),
