@@ -1,4 +1,5 @@
 // @dart=2.9
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:grocs/constants/user_constants.dart';
 import 'package:grocs/services/database.dart';
@@ -31,8 +32,22 @@ class _CustomerMainPageState extends State<CustomerMainPage> {
           }
 
           return snapshot.data.docs.length > 0 ? ListView.builder(
-            itemCount: snapshot.data.docs.length,
+            itemCount: snapshot.data.docs.length + 1,
             itemBuilder: (context, index) {
+              if(index == 0) {
+                return Container(
+                  padding: EdgeInsets.only(top: 40, left: 16, bottom: 16),
+                  child: Text(
+                    'Shops',
+                    style: TextStyle(
+                      fontSize: 50,
+                      color: AppColors.lightTheme,
+                      fontFamily: 'Nunito-Bold'
+                    ),
+                  ),
+                );
+              }
+
               return Padding(
                 padding: EdgeInsets.only(left: 16, right: 16, top: 12),
                 child: Card(
@@ -41,16 +56,17 @@ class _CustomerMainPageState extends State<CustomerMainPage> {
                   child: ListTile(
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                     leading: CircleAvatar(
-                      backgroundImage: AssetImage('assets/images/account_image.png'),
+                      backgroundImage: CachedNetworkImageProvider(snapshot.data.docs[index - 1]['imgUrl']),
                       backgroundColor: Colors.transparent,
                       radius: 28,
                     ),
-                    title: Text(snapshot.data.docs[index]['name']),
-                    subtitle: Text(snapshot.data.docs[index]['description']),
-                    tileColor: Colors.amber, 
+                    title: Text(snapshot.data.docs[index - 1]['name']),
+                    subtitle: Text(snapshot.data.docs[index - 1]['description'], style: TextStyle(
+                      color: AppColors.lightTheme.withOpacity(0.8)
+                    ),),
                     onTap: () {
                       Navigator.push(context, PageTransition(
-                        child: ShopPreview(snapshot.data.docs[index]),
+                        child: ShopPreview(snapshot.data.docs[index - 1]),
                         type: PageTransitionType.rightToLeftWithFade
                       ));
                     },   

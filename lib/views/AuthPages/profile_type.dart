@@ -47,14 +47,16 @@ class ProfileType extends StatelessWidget {
                       'Customer',
                       style: TextStyle(
                         color: AppColors.darkTheme,
-                        fontSize: 24
+                        fontSize: 24,
+                        fontFamily: 'Nunito-SemiBold'
                       ),
                     ),
                     Text(
                       'Select this if you\'re registering as a Customer',
                       style: TextStyle(
                         color: AppColors.darkTheme,
-                        fontSize: 16
+                        fontSize: 16,
+                        fontFamily: 'Nunito-SemiBold'
                       ),
                     ),
                   ],
@@ -82,14 +84,16 @@ class ProfileType extends StatelessWidget {
                       'Grocery Shop',
                       style: TextStyle(
                         color: AppColors.lightTheme,
-                        fontSize: 24
+                        fontSize: 24,
+                        fontFamily: 'Nunito-SemiBold'
                       ),
                     ),
                     Text(
                       'Select this if you\'re a Grocery Shop',
                       style: TextStyle(
                         color: AppColors.lightTheme,
-                        fontSize: 16
+                        fontSize: 16,
+                        fontFamily: 'Nunito-SemiBold'
                       ),
                     ),
                   ],

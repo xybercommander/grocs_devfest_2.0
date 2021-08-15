@@ -101,6 +101,7 @@ class _SignInState extends State<SignIn> {
                           },
                           decoration: InputDecoration(
                             hintText: 'Email',
+                            hintStyle: TextStyle(color: Colors.grey, fontFamily: 'Nunito-SemiBold'),
                             border: InputBorder.none
                           ),
                         ),
@@ -123,6 +124,7 @@ class _SignInState extends State<SignIn> {
                           },
                           decoration: InputDecoration(
                             hintText: 'Password',
+                            hintStyle: TextStyle(color: Colors.grey, fontFamily: 'Nunito-SemiBold'),
                             border: InputBorder.none,
                             suffixIcon: IconButton(
                               onPressed: () {
@@ -182,7 +184,8 @@ class _SignInState extends State<SignIn> {
                             Text(
                               'New user or company?   ',
                               style: TextStyle(
-                                color: Colors.black
+                                color: Colors.black,
+                                fontFamily: 'Nunito-SemiBold'
                               ),
                             ),
                             GestureDetector(
@@ -193,7 +196,8 @@ class _SignInState extends State<SignIn> {
                               child: Text(
                                 'Sign Up',
                                 style: TextStyle(
-                                  color: AppColors.lightTheme
+                                  color: AppColors.lightTheme,
+                                  fontFamily: 'Nunito-SemiBold'
                                 ),
                               ),
                             ),

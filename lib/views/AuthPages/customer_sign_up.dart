@@ -279,7 +279,8 @@ class _CustomerSignUpState extends State<CustomerSignUp> {
                             Text(
                               'Already have an account?  ',
                               style: TextStyle(
-                                color: Colors.black
+                                color: Colors.black,
+                                fontFamily: 'Nunito-SemiBold'
                               ),
                             ),
                             GestureDetector(
@@ -290,7 +291,8 @@ class _CustomerSignUpState extends State<CustomerSignUp> {
                               child: Text(
                                 'Sign In',
                                 style: TextStyle(
-                                  color: AppColors.lightTheme
+                                  color: AppColors.lightTheme,
+                                  fontFamily: 'Nunito-SemiBold'
                                 ),
                               ),
                             ),

@@ -131,7 +131,7 @@ class _ShopDetailsState extends State<ShopDetails> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      padding: EdgeInsets.symmetric(vertical: 40, horizontal: 32),
+                      padding: EdgeInsets.symmetric(vertical: 30, horizontal: 32),
                       child: Text(
                         'Add more Details',
                         style: TextStyle(
@@ -209,7 +209,7 @@ class _ShopDetailsState extends State<ShopDetails> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('Deliveries'),
+                          Text('Deliveries', style: TextStyle(fontFamily: 'Nunito-SemiBold', color: AppColors.lightTheme)),
                           Checkbox(
                             value: delivery,
                             fillColor: MaterialStateProperty.all<Color>(AppColors.lightTheme),
@@ -262,7 +262,8 @@ class _ShopDetailsState extends State<ShopDetails> {
                           Text(
                             'Already have an account?  ',
                             style: TextStyle(
-                              color: Colors.black
+                              color: Colors.black,
+                              fontFamily: 'Nunito-SemiBold'
                             ),
                           ),
                           GestureDetector(
@@ -273,7 +274,8 @@ class _ShopDetailsState extends State<ShopDetails> {
                             child: Text(
                               'Sign In',
                               style: TextStyle(
-                                color: AppColors.lightTheme
+                                color: AppColors.lightTheme,
+                                fontFamily: 'Nunito-SemiBold'
                               ),
                             ),
                           ),
