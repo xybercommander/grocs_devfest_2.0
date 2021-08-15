@@ -112,6 +112,7 @@ class _SettingsTileState extends State<SettingsTile> {
                           darkMode = val; 
                           Provider.of<ThemeModel>(context, listen: false).toggleTheme();
                           themeData = Provider.of<ThemeModel>(context, listen: false).currentTheme;
+                          // TODO: Implement SharedPref for dark theme
                         });
                       },
                     )
