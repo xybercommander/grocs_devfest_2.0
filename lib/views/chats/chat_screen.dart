@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:grocs/constants/encryption_constants.dart';
 import 'package:grocs/services/database.dart';
 import 'package:grocs/services/shared_preferences.dart';
+import 'package:grocs/utils/colors.dart';
 import 'package:random_string/random_string.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -67,8 +68,8 @@ class _ChatScreenState extends State<ChatScreen> {
                     begin: Alignment.centerLeft,
                     end: Alignment.centerRight,
                     colors: [
-                  sendByMe ? Color.fromRGBO(223, 140, 112, 1) : Color.fromRGBO(194, 200, 197, 1),
-                  sendByMe ? Color.fromRGBO(250, 89, 143, 1) : Color.fromRGBO(221, 221, 218, 1),
+                  sendByMe ? AppColors.lightTheme : Color.fromRGBO(194, 200, 197, 1),
+                  sendByMe ? AppColors.lightTheme : Color.fromRGBO(221, 221, 218, 1),
                 ])),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -163,7 +164,7 @@ class _ChatScreenState extends State<ChatScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.chatWithName),
-        backgroundColor: Color.fromRGBO(223, 140, 112, 1),        
+        backgroundColor: AppColors.lightTheme,        
       ),
 
       body: Container(
@@ -174,7 +175,7 @@ class _ChatScreenState extends State<ChatScreen> {
               alignment: Alignment.bottomCenter,
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                color: Color.fromRGBO(255, 153, 102, 1),
+                color: AppColors.lightTheme,
                 child: Row(
                   children: [
                     Expanded(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grocs/constants/user_constants.dart';
+import 'package:grocs/utils/colors.dart';
 import 'package:grocs/views/chats/chat_screen.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -40,47 +41,46 @@ class _ChatRoomListTileState extends State<ChatRoomListTile> {
         child: ChatScreen(name),
         type: PageTransitionType.bottomToTop
       )),
-      child: Container(
-        height: 60,
-        margin: EdgeInsets.symmetric(horizontal: 24,vertical: 8),
+      child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          gradient: LinearGradient(
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-              colors: [                        
-                Color.fromRGBO(223, 140, 112, 1),
-                Color.fromRGBO(250, 89, 143, 1)
-              ]
-            )
-          ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CircleAvatar(   
-              backgroundImage: AssetImage('assets/images/account_image.png'),           
-              backgroundColor: Colors.white,
-              radius: 20,
+        child: Card(
+          elevation: 4,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),),
+          child: Container(
+            height: 60,
+            margin: EdgeInsets.symmetric(vertical: 8),
+            padding: EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),      
             ),
-            SizedBox(width: 20,),
-            Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [            
-                  Text(name, style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 25
-                  ),),
-                  Text(
-                    widget.lastMessage.length > 30 ? widget.lastMessage.substring(0, 30) + '...' : widget.lastMessage, 
-                    overflow: TextOverflow.ellipsis, 
-                    style: TextStyle(
-                    fontSize: 13,
-                    color: Colors.white54
-                  ),)
-                ],
-              ),
-          ],
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CircleAvatar(   
+                  backgroundImage: AssetImage('assets/images/account_image.png'),           
+                  backgroundColor: Colors.white,
+                  radius: 20,
+                ),
+                SizedBox(width: 20,),
+                Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [            
+                      Text(name, style: TextStyle(
+                        color: AppColors.lightTheme,
+                        fontSize: 25
+                      ),),
+                      Text(
+                        widget.lastMessage.length > 30 ? widget.lastMessage.substring(0, 30) + '...' : widget.lastMessage, 
+                        overflow: TextOverflow.ellipsis, 
+                        style: TextStyle(
+                        fontSize: 13,
+                        color: AppColors.lightTheme.withOpacity(0.8)
+                      ),)
+                    ],
+                  ),
+              ],
+            ),
+          ),
         ),
       ),
     );
