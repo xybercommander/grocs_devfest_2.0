@@ -54,7 +54,7 @@ class _ChatRoomListState extends State<ChatRoomList> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [             
-              Text('Seems empty')
+              Text('Seems empty', style: TextStyle(color: AppColors.lightTheme),)
             ],
           ),
         );
@@ -71,9 +71,9 @@ class _ChatRoomListState extends State<ChatRoomList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: !UserConstants.isShop ? AppBar(        
-        title: Text('Chatroom List Page'),
-      ) : null,
+      // appBar: !UserConstants.isShop ? AppBar(        
+      //   title: Text('Chatroom List Page'),
+      // ) : null,
 
       body: chatRoomsList()
     );

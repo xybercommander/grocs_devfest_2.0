@@ -63,7 +63,10 @@ class _CustomerMainPageState extends State<CustomerMainPage> {
       ),
 
       floatingActionButton: FloatingActionButton(
-        onPressed: () => ChatRoomList(),
+        onPressed: () => Navigator.push(context, PageTransition(
+          child: ChatRoomList(),
+          type: PageTransitionType.rightToLeftWithFade
+        )),
         backgroundColor: AppColors.lightTheme,
         child: Icon(Icons.chat_rounded),
       ),
