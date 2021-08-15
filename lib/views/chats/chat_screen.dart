@@ -196,7 +196,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       onTap: () {
                         addMessage(true);
                       },
-                      child: Icon(Icons.send)
+                      child: Icon(Icons.send, color: Colors.white,)
                     )
                   ],
                 ),
