@@ -68,15 +68,15 @@ class NavigatorPageState extends State<NavigatorPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Navigator Page', style: TextStyle(color: Colors.white),),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.logout, color: Colors.white),
-            onPressed: () => signOut()
-          )
-        ],
-      ),
+      // appBar: AppBar(
+      //   title: Text('Navigator Page', style: TextStyle(color: Colors.white),),
+      //   actions: [
+      //     IconButton(
+      //       icon: Icon(Icons.logout, color: Colors.white),
+      //       onPressed: () => signOut()
+      //     )
+      //   ],
+      // ),
       body: PageView(
         controller: pageController,
         scrollDirection: Axis.horizontal,
@@ -88,7 +88,7 @@ class NavigatorPageState extends State<NavigatorPage> {
         children: pages,
       ),
 
-      bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar: BottomNavigationBar(        
         onTap: (value) {
           setState(() {
             _selectedIndex = value;
