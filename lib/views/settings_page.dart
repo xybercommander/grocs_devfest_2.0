@@ -40,10 +40,18 @@ class _SettingsPageState extends State<SettingsPage> {
               alignment: Alignment.center,
               child: Column(
                 children: [
-                  CircleAvatar(
-                    backgroundImage: AssetImage('assets/images/account_image.png'),
-                    backgroundColor: Colors.transparent,
-                    radius: 60,
+                  Container(
+                    child: UserConstants.imgUrl == ''
+                      ? CircleAvatar(
+                          backgroundImage: AssetImage('assets/images/account_image.png'),
+                          backgroundColor: Colors.transparent,
+                          radius: 60,
+                        )
+                      : CircleAvatar(
+                          backgroundImage: NetworkImage(UserConstants.imgUrl),
+                          backgroundColor: Colors.transparent,
+                          radius: 60,
+                        ),
                   ),
                   Text(
                     UserConstants.name,

@@ -47,6 +47,7 @@ class _CustomerSignUpState extends State<CustomerSignUp> {
           UserConstants.name = name.text;
           UserConstants.email = email.text;
           UserConstants.isShop = false;
+          if(imgUrl != '') UserConstants.imgUrl = imgUrl;
 
           Map<String, dynamic> customerInfo = {
             'name': name.text,
@@ -60,6 +61,7 @@ class _CustomerSignUpState extends State<CustomerSignUp> {
           SharedPref.saveEmailSharedPreference(email.text);
           SharedPref.saveIsShopSharedPreference(false);
           SharedPref.saveLoggedInSharedPreference(true);
+          if(imgUrl != '') SharedPref.saveImgUrlSharedPreference(imgUrl);
 
           Navigator.pushReplacement(context, PageTransition(
             child: NavigatorPage(),

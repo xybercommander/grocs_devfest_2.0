@@ -26,11 +26,13 @@ class NavigatorPageState extends State<NavigatorPage> {
   setPages() {
     if(UserConstants.isShop) {
       setState(() {
+        pages.clear();
         pages.add(ChatRoomList());
         pages.add(SettingsPage());
       });
     } else {
       setState(() {
+        pages.clear();
         pages.add(CustomerMainPage());
         pages.add(SettingsPage());
       });
@@ -42,15 +44,6 @@ class NavigatorPageState extends State<NavigatorPage> {
     // TODO: implement initState
     super.initState();    
     setPages();
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    setState(() {
-      pages = [];
-    });
   }
 
   @override
