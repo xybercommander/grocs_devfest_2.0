@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:grocs/constants/encryption_constants.dart';
 import 'package:grocs/constants/user_constants.dart';
 import 'package:grocs/services/database.dart';
+import 'package:grocs/utils/colors.dart';
 import 'package:grocs/widgets/chat_widgets.dart';
 
 class ChatRoomList extends StatefulWidget {
@@ -30,11 +31,23 @@ class _ChatRoomListState extends State<ChatRoomList> {
       builder: (context, snapshot) {        
         return snapshot.hasData ? ListView.builder(
           padding: EdgeInsets.only(top: 24),       
-          itemCount: snapshot.data.docs.length,
-          itemBuilder: (context, index) {
-            DocumentSnapshot ds = snapshot.data.docs[index];
-            // return Text(ds.id.replaceAll(CustomerConstants.fullName, '').replaceAll('_', ''));
-            String message = encrypter.decrypt64(ds['lastMessage'], iv: EncryptionConstants.iv);
+          itemCount: snapshot.data.docs.length + 1,
+          itemBuilder: (context, index) {            
+            if(index == 0) {
+              return Container(
+                padding: EdgeInsets.only(top: 40, left: 16, bottom: 16),
+                child: Text(
+                  'Chats',
+                  style: TextStyle(
+                    fontSize: 50,
+                    color: AppColors.lightTheme
+                  ),
+                ),
+              );
+            }
+
+            DocumentSnapshot ds = snapshot.data.docs[index - 1];
+            String message = encrypter.decrypt64(ds['lastMessage'], iv: EncryptionConstants.iv);            
             return ChatRoomListTile(ds.id, message, isCompany);
           },
         ) : Center(
