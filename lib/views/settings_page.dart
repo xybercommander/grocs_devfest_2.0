@@ -28,14 +28,16 @@ class _SettingsPageState extends State<SettingsPage> {
               'Settings',
               style: TextStyle(
                 fontSize: 50,
-                color: AppColors.lightTheme
+                color: AppColors.lightTheme,
+                fontFamily: 'Nunito-Bold'
               ),
             ),
             Text(
               'Account',
               style: TextStyle(
                 fontSize: 30,
-                color: AppColors.lightTheme
+                color: AppColors.lightTheme,
+                fontFamily: 'Nunito-Bold'
               ),
             ),            
             Container(
@@ -63,13 +65,17 @@ class _SettingsPageState extends State<SettingsPage> {
                   Text(
                     UserConstants.name,
                     style: TextStyle(
-                      fontSize: 20
+                      fontSize: 20,
+                      fontFamily: 'Nunito-Bold',
+                      color: AppColors.lightTheme
                     ),
                   ),
                   Text(
                     UserConstants.email,
                     style: TextStyle(
-                      fontSize: 16
+                      fontSize: 16,
+                      fontFamily: 'Nunito-Bold',
+                      color: AppColors.lightTheme
                     ),
                   ),
                 ],
@@ -79,15 +85,16 @@ class _SettingsPageState extends State<SettingsPage> {
               'More Settings',
               style: TextStyle(
                 fontSize: 30,
+                fontFamily: 'Nunito-Bold',
                 color: AppColors.lightTheme
               ),
             ),
             SizedBox(height: 24,),
-            SettingsTile(icon: Icons.dark_mode, color: Colors.purple[800], title: 'Dark Mode',),
+            SettingsTile(icon: Icons.dark_mode, color1: Colors.purple[800], color2: Colors.purple[200], title: 'Dark Mode',),
             SizedBox(height: 24,),
-            SettingsTile(icon: Icons.info, color: Colors.green[800], title: 'About Me',),
+            SettingsTile(icon: Icons.info, color1: Colors.green[800], color2: Colors.green[200], title: 'About Me',),
             SizedBox(height: 24,),
-            SettingsTile(icon: Icons.logout, color: Colors.red[800], title: 'Logout',),            
+            SettingsTile(icon: Icons.logout, color1: Colors.red[800], color2: Colors.red[200], title: 'Logout',),            
           ],
         ),
       ),

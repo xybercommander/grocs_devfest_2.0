@@ -40,7 +40,8 @@ class _ChatRoomListState extends State<ChatRoomList> {
                   'Chats',
                   style: TextStyle(
                     fontSize: 50,
-                    color: AppColors.lightTheme
+                    color: AppColors.lightTheme,
+                    fontFamily: 'Nunito-Bold'
                   ),
                 ),
               );

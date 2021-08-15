@@ -90,7 +90,8 @@ class NavigatorPageState extends State<NavigatorPage> {
                 style: TextStyle(
                   color: _selectedIndex == 0
                     ? AppColors.lightTheme
-                    : Colors.grey[400]
+                    : Colors.grey[400],
+                  fontFamily: 'Nunito-SemiBold'
                 ),
               ),
           ),
@@ -104,7 +105,8 @@ class NavigatorPageState extends State<NavigatorPage> {
                 style: TextStyle(
                   color: _selectedIndex == 1
                     ? AppColors.lightTheme
-                    : Colors.grey[400]
+                    : Colors.grey[400],
+                  fontFamily: 'Nunito-SemiBold'
                 ),
               ),
           ),          
