@@ -1,6 +1,9 @@
+// @dart=2.9
 import 'dart:async';
-
+import 'dart:io';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:grocs/constants/user_constants.dart';
 import 'package:grocs/services/auth.dart';
 import 'package:grocs/services/database.dart';
@@ -8,11 +11,12 @@ import 'package:grocs/services/shared_preferences.dart';
 import 'package:grocs/utils/colors.dart';
 import 'package:grocs/views/AuthPages/sign_in_page.dart';
 import 'package:grocs/views/navigator_page.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:page_transition/page_transition.dart';
 
 class ShopDetails extends StatefulWidget {
   final Map shopUserInfo; 
-  const ShopDetails({ Key? key, required this.shopUserInfo }) : super(key: key);
+  const ShopDetails({ Key key, @required this.shopUserInfo }) : super(key: key);
 
   @override
   _ShopDetailsState createState() => _ShopDetailsState();
@@ -24,20 +28,29 @@ class _ShopDetailsState extends State<ShopDetails> {
   TextEditingController description = TextEditingController();
   bool delivery = false;
 
+  File _image;
+  String imgUrl = '';
+
   AuthMethods authMethods = AuthMethods();
   DatabaseMethods databaseMethods = DatabaseMethods();  
 
-  shopSignUp() {
+  shopSignUp() async {
+    if(_image != null) {
+      await uploadPic();
+    }
+
     authMethods.signUpWithEmailAndPassword(widget.shopUserInfo['email'], widget.shopUserInfo['password'])
         .then((value) async {
           UserConstants.name = widget.shopUserInfo['name'];
           UserConstants.email = widget.shopUserInfo['email'];
           UserConstants.isShop = true;
+          if(imgUrl != '') UserConstants.imgUrl = imgUrl;
 
           Map<String, dynamic> shopUserInfo = {
             'name': widget.shopUserInfo['name'],
             'isShop': true,            
-            'email': widget.shopUserInfo['email']
+            'email': widget.shopUserInfo['email'],
+            'imgUrl': imgUrl
           };          
           await databaseMethods.uploadUserInfo(shopUserInfo);
 
@@ -45,7 +58,8 @@ class _ShopDetailsState extends State<ShopDetails> {
             'contact': phone.text,
             'delivery': true,
             'description': description.text,
-            'name': widget.shopUserInfo['name']
+            'name': widget.shopUserInfo['name'],
+            'imgUrl': imgUrl
           };
           databaseMethods.uploadShopInfo(shopData);
 
@@ -53,12 +67,36 @@ class _ShopDetailsState extends State<ShopDetails> {
           SharedPref.saveEmailSharedPreference(widget.shopUserInfo['email']);
           SharedPref.saveIsShopSharedPreference(true);
           SharedPref.saveLoggedInSharedPreference(true);
+          if(imgUrl != '') SharedPref.saveImgUrlSharedPreference(imgUrl);
           
           Navigator.pushReplacement(context, PageTransition(
             child: NavigatorPage(),
             type: PageTransitionType.rightToLeftWithFade
           ));
         });
+  }
+
+  final picker = ImagePicker();
+  Future getImage() async {
+    PickedFile pickedFile = await picker.getImage(source: ImageSource.gallery);
+    setState(() {
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+      } else {
+        Fluttertoast.showToast(
+            msg: 'No Image Picked!',
+            textColor: Colors.white,
+            backgroundColor: Color.fromRGBO(253, 170, 142, 1));
+      }
+    });
+  }
+
+  Future uploadPic() async {
+    final file = _image;
+    FirebaseStorage storage = FirebaseStorage.instance;
+    Reference reference = storage.ref().child(file.path);
+    await reference.putFile(file);
+    imgUrl = await reference.getDownloadURL();
   }
 
   @override
@@ -105,6 +143,34 @@ class _ShopDetailsState extends State<ShopDetails> {
                       ),
                     ),
                     Container(
+                      padding: EdgeInsets.symmetric(horizontal: 32),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          CircleAvatar(
+                            backgroundImage: _image == null 
+                                ? AssetImage('assets/images/account_image.png')
+                                : FileImage(_image),
+                            backgroundColor: Colors.transparent,
+                            radius: 35,
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              getImage();
+                            },
+                            child: Text(
+                              '+Add Image',
+                              style: TextStyle(
+                                color: AppColors.lightTheme,
+                                fontFamily: 'Nunito-Bold'
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 12,),
+                    Container(
                       padding: EdgeInsets.symmetric(horizontal: 16),
                       margin: EdgeInsets.symmetric(horizontal: 32),
                       decoration: BoxDecoration(
@@ -149,7 +215,7 @@ class _ShopDetailsState extends State<ShopDetails> {
                             fillColor: MaterialStateProperty.all<Color>(AppColors.lightTheme),
                             onChanged: (value) {
                               setState(() {
-                                delivery = value!;
+                                delivery = value;
                               });                              
                             },
                           )

@@ -57,6 +57,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           ),
                     ),
                   ),
+                  SizedBox(height: 8,),
                   Text(
                     UserConstants.name,
                     style: TextStyle(
