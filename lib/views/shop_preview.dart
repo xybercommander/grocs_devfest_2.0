@@ -1,5 +1,5 @@
-// THIS PAGE IS FOR THE COMPANY PREVIEW PAGE
-
+// @dart=2.9
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:grocs/constants/user_constants.dart';
@@ -35,21 +35,29 @@ class ShopPreview extends StatelessWidget {
                   Container(
                     height: 200,
                     decoration: BoxDecoration(
-                      color: AppColors.lightTheme
-                      // image: DecorationImage(
-                      //   image: _setCover(),
-                      //   fit: BoxFit.cover
-                      // )
+                      // color: AppColors.lightTheme
+                      image: DecorationImage(
+                        image: AssetImage('assets/images/storeCover.jpg'),
+                        fit: BoxFit.cover
+                      )
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 8),
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.arrow_back, color: Colors.white,), 
-                      onPressed: () { 
-                        Navigator.pop(context);
-                       },
+                  Container(
+                    padding: const EdgeInsets.symmetric(vertical: 48, horizontal: 16),                    
+                    child: Container(
+                      height: 50,
+                      width: 50,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[400],
+                        borderRadius: BorderRadius.circular(50)
+                      ),
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.arrow_back, color: Colors.white,), 
+                        onPressed: () { 
+                          Navigator.pop(context);
+                         },
+                      ),
                     ),
                   )
                 ],
@@ -111,7 +119,7 @@ class ShopPreview extends StatelessWidget {
             left: MediaQuery.of(context).size.width / 3,
             top: 120,
             child: CircleAvatar(
-              backgroundImage: AssetImage('assets/images/account_image.png'),
+              backgroundImage: CachedNetworkImageProvider(queryDocumentSnapshot['imgUrl']),
               backgroundColor: Colors.grey[100],
               radius: 60,
             ),
