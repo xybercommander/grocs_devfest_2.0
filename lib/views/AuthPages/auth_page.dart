@@ -34,10 +34,12 @@ class _AuthPageState extends State<AuthPage> {
             UserConstants.email = documentSnapshot['email'];
             UserConstants.name = documentSnapshot['name'];
             UserConstants.isShop = documentSnapshot['isShop'];
+            UserConstants.imgUrl = documentSnapshot['imgUrl'];
 
             SharedPref.saveEmailSharedPreference(documentSnapshot['email']);
             SharedPref.saveNameSharedPreference(documentSnapshot['name']);
             SharedPref.saveIsShopSharedPreference(documentSnapshot['isShop']);
+            SharedPref.saveImgUrlSharedPreference(documentSnapshot['imgUrl']);
             SharedPref.saveLoggedInSharedPreference(true);
 
             WidgetsBinding.instance.addPostFrameCallback((_) {
