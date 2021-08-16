@@ -112,7 +112,7 @@ class _SettingsTileState extends State<SettingsTile> {
                         setState(() {
                           darkMode = val; 
                           Provider.of<ThemeModel>(context, listen: false).toggleTheme();
-                          themeData = Provider.of<ThemeModel>(context, listen: false).currentTheme;                          
+                          themeData = Provider.of<ThemeModel>(context, listen: false).currentTheme;
                         });
                       },
                     )
@@ -127,6 +127,9 @@ class _SettingsTileState extends State<SettingsTile> {
                   child: IconButton(
                     onPressed: () {
                       if(widget.title == 'Logout') {
+                        if(Provider.of<ThemeModel>(context, listen: false).currentTheme == darkTheme) {
+                          Provider.of<ThemeModel>(context, listen: false).toggleTheme();
+                        }
                         signOut();
                       }
                     },
