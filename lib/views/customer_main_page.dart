@@ -18,12 +18,14 @@ class CustomerMainPage extends StatefulWidget {
 class _CustomerMainPageState extends State<CustomerMainPage> {
 
   DatabaseMethods databaseMethods = DatabaseMethods();
+  String location = "";
+  List<String> locations = ['Kolkata', 'New Delhi', 'Mumbai', 'Chennai'];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: StreamBuilder(
-        stream: databaseMethods.getShopsList(),
+        stream: databaseMethods.getShopsList(location: location),
         builder: (context, snapshot) {
           if(!snapshot.hasData) {
             return Center(
@@ -32,7 +34,7 @@ class _CustomerMainPageState extends State<CustomerMainPage> {
           }
 
           return snapshot.data.docs.length > 0 ? ListView.builder(
-            itemCount: snapshot.data.docs.length + 1,
+            itemCount: snapshot.data.docs.length + 2,
             itemBuilder: (context, index) {
               if(index == 0) {
                 return Container(
@@ -48,6 +50,50 @@ class _CustomerMainPageState extends State<CustomerMainPage> {
                 );
               }
 
+              if(index == 1) {
+                return Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  margin: const EdgeInsets.symmetric(horizontal: 32),
+                  decoration: BoxDecoration(
+                    color: Colors.grey[200],
+                    borderRadius: BorderRadius.circular(10)
+                  ),
+                  child: DropdownButtonFormField(
+                    isDense: true,
+                    icon: Icon(Icons.keyboard_arrow_down, color: Colors.black,),
+                    iconSize: 15,
+                    iconEnabledColor: Theme.of(context).primaryColor,
+                    style: TextStyle(fontSize: 18, fontFamily: 'Nunito-SemiBold', color: AppColors.lightTheme),
+                    items: locations.map((String location) {
+                      return DropdownMenuItem(
+                        value: location,
+                        child: Text(
+                          location,
+                          style: TextStyle(
+                            color: AppColors.lightTheme,
+                            fontSize: 18
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                    decoration: InputDecoration(
+                      hintText: 'Location',
+                      border: InputBorder.none                            
+                    ),
+                    validator: (input) {
+                      return input != null || input != '' 
+                          ? null
+                          : 'Please select a location';
+                    },
+                    onChanged: (value) {
+                      setState(() {
+                        location = value;
+                      });
+                    },                   
+                  ),
+                );
+              }
+
               return Padding(
                 padding: EdgeInsets.only(left: 16, right: 16, top: 12),
                 child: Card(
@@ -56,13 +102,13 @@ class _CustomerMainPageState extends State<CustomerMainPage> {
                   child: ListTile(
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                     leading: CircleAvatar(
-                      backgroundImage: CachedNetworkImageProvider(snapshot.data.docs[index - 1]['imgUrl']),
+                      backgroundImage: CachedNetworkImageProvider(snapshot.data.docs[index - 2]['imgUrl']),
                       backgroundColor: Colors.transparent,
                       radius: 28,
                     ),
-                    title: Text(snapshot.data.docs[index - 1]['name']),
+                    title: Text(snapshot.data.docs[index - 2]['name']),
                     subtitle: Text(
-                      snapshot.data.docs[index - 1]['description'], 
+                      snapshot.data.docs[index - 2]['description'], 
                       style: TextStyle(
                         color: AppColors.lightTheme.withOpacity(0.8)
                       ),
@@ -71,7 +117,7 @@ class _CustomerMainPageState extends State<CustomerMainPage> {
                     ),
                     onTap: () {
                       Navigator.push(context, PageTransition(
-                        child: ShopPreview(snapshot.data.docs[index - 1]),
+                        child: ShopPreview(snapshot.data.docs[index - 2]),
                         type: PageTransitionType.rightToLeftWithFade
                       ));
                     },   

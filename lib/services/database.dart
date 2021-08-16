@@ -22,10 +22,17 @@ class DatabaseMethods {
   }
 
   //-------- GET THE SHOP LIST --------//
-  getShopsList() {
-    return FirebaseFirestore.instance
-      .collection('shops')      
-      .snapshots();
+  getShopsList({ String location }) {
+    if(location == null || location == '') {
+      return FirebaseFirestore.instance
+        .collection('shops')      
+        .snapshots();
+    } else {
+      return FirebaseFirestore.instance
+        .collection('shops')
+        .where('location', isEqualTo: location)
+        .snapshots();
+    }    
   }
 
   // adding a message to chats sub-collection of chatrooms collection

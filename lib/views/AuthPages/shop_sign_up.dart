@@ -99,7 +99,7 @@ class _ShopSignUpState extends State<ShopSignUp> {
                         ),
                         child: DropdownButtonFormField(
                           isDense: true,
-                          icon: Icon(Icons.arrow_drop_down_circle, color: Colors.black,),
+                          icon: Icon(Icons.keyboard_arrow_down, color: Colors.black,),
                           iconSize: 15,
                           iconEnabledColor: Theme.of(context).primaryColor,
                           style: TextStyle(fontSize: 18, fontFamily: 'Nunito-SemiBold', color: AppColors.lightTheme),
