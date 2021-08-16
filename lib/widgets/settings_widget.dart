@@ -38,6 +38,7 @@ class _SettingsTileState extends State<SettingsTile> {
     SharedPref.saveEmailSharedPreference("");
     SharedPref.saveNameSharedPreference("");
     SharedPref.saveLoggedInSharedPreference(false);
+    SharedPref.saveImgUrlSharedPreference("");
 
     Navigator.pushReplacement(context, PageTransition(
       child: SignIn(),
@@ -111,8 +112,7 @@ class _SettingsTileState extends State<SettingsTile> {
                         setState(() {
                           darkMode = val; 
                           Provider.of<ThemeModel>(context, listen: false).toggleTheme();
-                          themeData = Provider.of<ThemeModel>(context, listen: false).currentTheme;
-                          // TODO: Implement SharedPref for dark theme
+                          themeData = Provider.of<ThemeModel>(context, listen: false).currentTheme;                          
                         });
                       },
                     )
