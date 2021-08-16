@@ -68,9 +68,36 @@ class ShopPreview extends StatelessWidget {
                   scrollDirection: Axis.vertical,
                   children: [
                     SizedBox(height: 20,),
-                    Text('${queryDocumentSnapshot['name']}', style: TextStyle(fontSize: 40, color: AppColors.lightTheme), textAlign: TextAlign.center,),
+                    Text('${queryDocumentSnapshot['name']}', style: TextStyle(
+                        fontSize: 40, color: AppColors.lightTheme, fontFamily: 'Nunito-Bold'
+                      ), 
+                      textAlign: TextAlign.center,
+                    ),
                     SizedBox(height: 10,),
-                    Text('${queryDocumentSnapshot['contact']}', style: TextStyle(fontSize: 25, color: AppColors.lightTheme), textAlign: TextAlign.center,),
+                    Text('Contact No: ${queryDocumentSnapshot['contact']}', style: TextStyle(
+                        fontSize: 18, color: AppColors.lightTheme, fontFamily: 'Nunito-Bold'
+                      ), textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 10,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Delivery available: ', 
+                          style: TextStyle(
+                            fontSize: 18, color: AppColors.lightTheme, fontFamily: 'Nunito-Bold'
+                          ), 
+                          textAlign: TextAlign.center,
+                        ),
+                        SizedBox(width: 8,),
+                        Image.asset(
+                          queryDocumentSnapshot['delivery'] 
+                            ? 'assets/images/check.png' : 'assets/images/remove.png',
+                          height: 20,
+                          width: 20,
+                        )
+                      ],
+                    ),
                     Container(
                       margin: EdgeInsets.symmetric(horizontal: 32, vertical: 32),
                       height: 0.5,                   
