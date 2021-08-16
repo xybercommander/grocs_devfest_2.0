@@ -16,7 +16,8 @@ import 'package:page_transition/page_transition.dart';
 
 class ShopDetails extends StatefulWidget {
   final Map shopUserInfo; 
-  const ShopDetails({ Key key, @required this.shopUserInfo }) : super(key: key);
+  final String location;
+  const ShopDetails({ Key key, @required this.shopUserInfo, @required this.location }) : super(key: key);
 
   @override
   _ShopDetailsState createState() => _ShopDetailsState();
@@ -59,7 +60,8 @@ class _ShopDetailsState extends State<ShopDetails> {
             'delivery': true,
             'description': description.text,
             'name': widget.shopUserInfo['name'],
-            'imgUrl': imgUrl
+            'imgUrl': imgUrl,
+            'location': widget.location
           };
           databaseMethods.uploadShopInfo(shopData);
 

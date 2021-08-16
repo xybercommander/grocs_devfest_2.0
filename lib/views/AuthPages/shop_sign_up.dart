@@ -22,7 +22,9 @@ class _ShopSignUpState extends State<ShopSignUp> {
   TextEditingController name = TextEditingController();
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
-
+  String location;
+  
+  List<String> locations = ['Kolkata', 'New Delhi', 'Mumbai', 'Chennai'];
   bool hidePassword = true;
 
   final formKey = GlobalKey<FormState>();
@@ -47,7 +49,7 @@ class _ShopSignUpState extends State<ShopSignUp> {
               Container(
                 padding: EdgeInsets.only(top: 16),
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height / 1.4,
+                height: MediaQuery.of(context).size.height / 1.35,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
@@ -95,6 +97,48 @@ class _ShopSignUpState extends State<ShopSignUp> {
                           color: Colors.grey[200],
                           borderRadius: BorderRadius.circular(10)
                         ),
+                        child: DropdownButtonFormField(
+                          isDense: true,
+                          icon: Icon(Icons.arrow_drop_down_circle, color: Colors.black,),
+                          iconSize: 15,
+                          iconEnabledColor: Theme.of(context).primaryColor,
+                          style: TextStyle(fontSize: 18, fontFamily: 'Nunito-SemiBold', color: AppColors.lightTheme),
+                          items: locations.map((String location) {
+                            return DropdownMenuItem(
+                              value: location,
+                              child: Text(
+                                location,
+                                style: TextStyle(
+                                  color: AppColors.lightTheme,
+                                  fontSize: 18
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                          decoration: InputDecoration(
+                            hintText: 'Location',
+                            border: InputBorder.none                            
+                          ),
+                          validator: (input) {
+                            return input != null || input != '' 
+                                ? null
+                                : 'Please select a location';
+                          },
+                          onChanged: (value) {
+                            setState(() {
+                              location = value;
+                            });
+                          },                   
+                        ),
+                      ),
+                      SizedBox(height: 12,),
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        margin: EdgeInsets.symmetric(horizontal: 32),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                          borderRadius: BorderRadius.circular(10)
+                        ),                        
                         child: TextFormField(
                           controller: email,
                           validator: (value) {
@@ -165,7 +209,7 @@ class _ShopSignUpState extends State<ShopSignUp> {
                                     'password': password.text
                                   };
                                   Navigator.pushReplacement(context, PageTransition(
-                                    child: ShopDetails(shopUserInfo: shopUser),
+                                    child: ShopDetails(shopUserInfo: shopUser, location: location,),
                                     type: PageTransitionType.rightToLeftWithFade
                                   ));
                                 }
