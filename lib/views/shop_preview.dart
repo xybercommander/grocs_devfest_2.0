@@ -91,7 +91,7 @@ class ShopPreview extends StatelessWidget {
                         ),
                         SizedBox(width: 8,),
                         Image.asset(
-                          queryDocumentSnapshot['delivery'] 
+                          queryDocumentSnapshot['delivery'] == true 
                             ? 'assets/images/check.png' : 'assets/images/remove.png',
                           height: 20,
                           width: 20,

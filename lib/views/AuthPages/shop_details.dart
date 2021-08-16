@@ -57,7 +57,7 @@ class _ShopDetailsState extends State<ShopDetails> {
 
           Map<String, dynamic> shopData = {
             'contact': phone.text,
-            'delivery': true,
+            'delivery': delivery,
             'description': description.text,
             'name': widget.shopUserInfo['name'],
             'imgUrl': imgUrl,
