@@ -61,9 +61,14 @@ class _CustomerMainPageState extends State<CustomerMainPage> {
                       radius: 28,
                     ),
                     title: Text(snapshot.data.docs[index - 1]['name']),
-                    subtitle: Text(snapshot.data.docs[index - 1]['description'], style: TextStyle(
-                      color: AppColors.lightTheme.withOpacity(0.8)
-                    ),),
+                    subtitle: Text(
+                      snapshot.data.docs[index - 1]['description'], 
+                      style: TextStyle(
+                        color: AppColors.lightTheme.withOpacity(0.8)
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                     onTap: () {
                       Navigator.push(context, PageTransition(
                         child: ShopPreview(snapshot.data.docs[index - 1]),
