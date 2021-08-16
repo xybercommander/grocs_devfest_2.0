@@ -7,6 +7,7 @@ class SharedPref {
   static String emailSharedPreferenceKey = 'EMAILKEY';
   static String nameSharedPreferenceKey = 'NAMEKEY';
   static String imgUrlSharedPreferenceKey = 'IMGURLKEY';
+  static String darkModeSharedPreferenceKey = 'DARKMODEKEY';
 
   //-------- SET FUNCTION --------//
 
@@ -35,7 +36,10 @@ class SharedPref {
     await preferences.setString(imgUrlSharedPreferenceKey, imgUrl);
   }
 
-
+  static Future<void> saveDarkModeSharedPreference(bool darkMode) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    await preferences.setBool(darkModeSharedPreferenceKey, darkMode);
+  }
 
   //-------- GET FUNCTION --------//
 
@@ -62,5 +66,10 @@ class SharedPref {
   static Future<String?> getImgUrlInSharedPreference() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     return preferences.getString(imgUrlSharedPreferenceKey);
+  }
+
+  static Future<bool?> getDarkModeInSharedPreference() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    return preferences.getBool(darkModeSharedPreferenceKey);
   }
 }
